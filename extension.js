@@ -1,23 +1,15 @@
-
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-const { exec } = require('child_process');
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const chokidar = require('chokidar');
+const path = require('path');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
 
-	console.log('Congratulations, your extension "twilioserverless" is now active!');
+	console.log('Twilio Serverless for Code is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.serverless', function () {
+	let init = vscode.commands.registerCommand('extension.init', function () {
 		return vscode.window
 			.showOpenDialog({
 				canSelectFiles: false,
@@ -40,21 +32,84 @@ function activate(context) {
 					}
 
 					const projectFolder = folder[0].fsPath;
-					
+					const projectPath = path.join(projectFolder, projectName);
 					const terminal = vscode.window.createTerminal();
+					
 					terminal.show();
 					terminal.sendText(`twilio serverless:init ${projectName}`);
 
-					vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(projectFolder));
+					// Watch directory for the creation of the project.
+					const fileWatcher = chokidar.watch(projectFolder, {
+						ignored: /(^|[\/\\])\../,
+						persistent: true,
+						depth: 1
+					});
+
+					fileWatcher
+						.on('addDir', path => {
+							if (path === projectPath) {
+								// Open project once the folder has been created
+								vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(projectPath));
+							}
+						})
+
 				})				
 			});
 	});
 
-	context.subscriptions.push(disposable);
+	let newFn = vscode.commands.registerCommand('extension.new', function () {
+		return vscode.window.showInputBox({
+			ignoreFocusOut: true,
+			placeHolder: 'Enter your function name here...',
+		}).then(fnName => {
+			const wsPath = (vscode.workspace.workspaceFolders[0].uri.fsPath);
+			const fnPath = path.join(wsPath, 'functions');
+			
+			if (!fnName || !wsPath) {
+				return;
+			}
+
+			const terminal = vscode.window.createTerminal();
+			terminal.show();
+			terminal.sendText(`twilio serverless:new ${fnName}`);
+
+			const fileWatcher = chokidar.watch(fnPath, {
+				ignored: /(^|[\/\\])\../,
+				persistent: true,
+				depth: 1
+			});
+
+			fileWatcher
+				.on('add', path => {
+					if (path === wsPath + `/functions/${fnName}.js`) {
+						// Open file once created
+						vscode.window.showTextDocument(vscode.Uri.file(wsPath + `/functions/${fnName}.js`));
+					}
+				})
+
+		})
+	});
+
+	let start = vscode.commands.registerCommand('extension.start', function () {
+		
+		const terminal = vscode.window.createTerminal();
+		terminal.show();
+		terminal.sendText(`twilio serverless:start --live`);
+
+	});
+
+	let deploy = vscode.commands.registerCommand('extension.deploy', function () {
+
+		const terminal = vscode.window.createTerminal();
+		terminal.show();
+		terminal.sendText(`twilio serverless:deploy`);
+
+	});
+
+	context.subscriptions.push(init, newFn, start, deploy);
 }
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {

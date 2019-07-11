@@ -10,14 +10,29 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.serverless"
+		"onCommand:extension.init",
+		"onCommand:extension.new",
+		"onCommand:extension.start",
+		"onCommand:extension.deploy"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.serverless",
-				"title": "serverless"
+				"command": "extension.init",
+				"title": "Twilio Serverless: Init"
+			},
+			{
+				"command": "extension.new",
+				"title": "Twilio Serverless: New Function"
+			},
+			{
+				"command": "extension.start",
+				"title": "Twilio Serverless: Start"
+			},
+			{
+				"command": "extension.deploy",
+				"title": "Twilio Serverless: Deploy"
 			}
 		]
 	},
@@ -34,5 +49,8 @@
 		"mocha": "^6.1.4",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.0.0-next.0"
+	},
+	"dependencies": {
+		"chokidar": "^3.0.2"
 	}
 }
