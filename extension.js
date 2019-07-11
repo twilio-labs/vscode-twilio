@@ -24,7 +24,7 @@ function activate(context) {
 
 				vscode.window.showInputBox({
 					ignoreFocusOut: true,
-					placeHolder: 'Enter your project name here...',
+					placeHolder: 'Enter your project name...',
 				}).then(projectName => {
 
 					if (!projectName) {
@@ -32,10 +32,13 @@ function activate(context) {
 					}
 
 					const projectFolder = folder[0].fsPath;
+
+					console.log(projectFolder);
 					const projectPath = path.join(projectFolder, projectName);
-					const terminal = vscode.window.createTerminal();
-					
+
+					const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
 					terminal.show();
+					terminal.sendText(`cd ${projectFolder}`);
 					terminal.sendText(`twilio serverless:init ${projectName}`);
 
 					// Watch directory for the creation of the project.
@@ -63,47 +66,46 @@ function activate(context) {
 			placeHolder: 'Enter your function name here...',
 		}).then(fnName => {
 			const wsPath = (vscode.workspace.workspaceFolders[0].uri.fsPath);
-			const fnPath = path.join(wsPath, 'functions');
+			const fnDirPath = path.join(wsPath, 'functions');
+			const fnFilePath = path.join(fnDirPath, `${fnName}.js`);
 			
 			if (!fnName || !wsPath) {
 				return;
 			}
 
-			const terminal = vscode.window.createTerminal();
+			const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
 			terminal.show();
 			terminal.sendText(`twilio serverless:new ${fnName}`);
 
-			const fileWatcher = chokidar.watch(fnPath, {
+			const fileWatcher = chokidar.watch(fnDirPath, {
 				ignored: /(^|[\/\\])\../,
 				persistent: true,
 				depth: 1
 			});
 
-			fileWatcher
-				.on('add', path => {
-					if (path === wsPath + `/functions/${fnName}.js`) {
-						// Open file once created
-						vscode.window.showTextDocument(vscode.Uri.file(wsPath + `/functions/${fnName}.js`));
-					}
-				})
-
-		})
+			fileWatcher.on('add', addedFile => {
+				if (addedFile === fnFilePath) {
+					// Open file once created
+					vscode.workspace.openTextDocument(vscode.Uri.parse(fnFilePath)).then(doc => {
+						vscode.window.showTextDocument(doc, 1, false);
+					});
+				}
+			});
+		});
 	});
 
 	let start = vscode.commands.registerCommand('extension.start', function () {
-		
-		const terminal = vscode.window.createTerminal();
+
+		const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal :  vscode.window.createTerminal();
 		terminal.show();
 		terminal.sendText(`twilio serverless:start --live`);
-
 	});
 
 	let deploy = vscode.commands.registerCommand('extension.deploy', function () {
 
-		const terminal = vscode.window.createTerminal();
+		const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
 		terminal.show();
 		terminal.sendText(`twilio serverless:deploy`);
-
 	});
 
 	context.subscriptions.push(init, newFn, start, deploy);
