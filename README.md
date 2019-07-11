@@ -1,5 +1,10 @@
 # vscode-twilio README
 
+## Running
+1. Clone repo
+2. Open in vscode
+3. Hit `F5` to compile and launch
+
 ## Features
 
 Adds the following functionality to the vscode command palette:
