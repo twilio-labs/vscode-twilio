@@ -1,6 +1,10 @@
 {
-	"name": "twilioserverless",
-	"displayName": "TwilioServerless",
+	"name": "vscode-twilio",
+	"displayName": "VSCode Twilio",
+	"author": {
+		"name": "Charlie Weems",
+		"email": "cweems@twilio.com"
+	},
 	"description": "Deploy Twilio functions from VSCode.",
 	"version": "0.0.1",
 	"engines": {
