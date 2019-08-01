@@ -79,7 +79,8 @@ function activate(context) {
 
 	let start = vscode.commands.registerCommand('extension.start', function () {
 
-		const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal :  vscode.window.createTerminal();
+		const terminals = vscode.window.terminals;
+		const terminal = terminals.length > 1 ? terminals[terminals.length - 1] : vscode.window.createTerminal();
 		terminal.show();
 		terminal.sendText(`twilio serverless:start --live`);
 	});
