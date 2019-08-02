@@ -1,7 +1,7 @@
 # vscode-twilio README
 
 ## Status
-This project is a proof of concept. It has not been tested or released on the VSCode extension marketplace.
+This project has not been tested or released on the VSCode extension marketplace.
 
 ## Features
 Adds the following functionality to the vscode command palette:
