@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const chokidar = require('chokidar');
+const fs = require('fs');
 const path = require('path');
 const assignTerminal = require('./helpers/assignTerminal');
 
@@ -94,7 +95,28 @@ function activate(context) {
 		terminal.sendText(`twilio serverless:deploy`);
 	});
 
-	context.subscriptions.push(init, newFn, start, deploy);
+	let activate = vscode.commands.registerCommand('extension.activate', function() {
+		const wsPath = (vscode.workspace.workspaceFolders[0].uri.fsPath);
+		const twilioFnFilePath = path.join(wsPath, `.twilio-functions`);
+		const terminal = vscode.window.activeTerminal || vscode.window.createTerminal();
+		fs.readFile(twilioFnFilePath, 'utf8', (err, data) => {
+			const parsedData = JSON.parse(data);
+			if (parsedData.serviceSid) {
+				terminal.show();
+				terminal.sendText(`twilio serverless:activate`);
+			} else {
+				vscode.window.showInputBox({
+					ignoreFocusOut: true,
+					placeHolder: 'Enter your Service SID here...',
+				}).then(serviceSid => {
+					terminal.show();
+					terminal.sendText(`twilio serverless:activate --service-sid=${serviceSid}`);
+				});	
+			}
+		})
+	});
+
+	context.subscriptions.push(init, newFn, start, deploy, activate);
 }
 
 function deactivate() {}

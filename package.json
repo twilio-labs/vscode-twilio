@@ -17,7 +17,8 @@
 		"onCommand:extension.init",
 		"onCommand:extension.new",
 		"onCommand:extension.start",
-		"onCommand:extension.deploy"
+		"onCommand:extension.deploy",
+		"onCommand:extension.activate"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -37,6 +38,10 @@
 			{
 				"command": "extension.deploy",
 				"title": "Twilio Serverless: Deploy"
+			},
+			{
+				"command": "extension.activate",
+				"title": "Twilio Serverless: Activate"
 			}
 		]
 	},
