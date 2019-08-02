@@ -1,4 +1,5 @@
 # vscode-twilio README
+![frame-002](https://user-images.githubusercontent.com/1418949/62335662-86fcb500-b481-11e9-8605-0028f1b39815.jpg)
 
 ## Status
 This project has not been tested or released on the VSCode extension marketplace.
