@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const chokidar = require('chokidar');
 const path = require('path');
+const assignTerminal = require('./helpers/assignTerminal');
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -35,7 +36,7 @@ function activate(context) {
 
 					console.log(projectFolder);
 
-					const terminal = vscode.window.activeTerminal || vscode.window.createTerminal();
+					const terminal = assignTerminal(vscode, 'init');
 					terminal.show();
 					terminal.sendText(`cd ${projectFolder}`);
 					terminal.sendText(`twilio serverless:init ${projectName} && code ${projectName} -r`);
@@ -56,7 +57,7 @@ function activate(context) {
 				return;
 			}
 
-			const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
+			const terminal = assignTerminal(vscode, 'new');
 			terminal.show();
 			terminal.sendText(`twilio serverless:new ${fnName}`);
 
@@ -79,21 +80,22 @@ function activate(context) {
 
 	let start = vscode.commands.registerCommand('extension.start', function () {
 
-		const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal :  vscode.window.createTerminal();
-		terminal.show();
-		terminal.sendText(`twilio serverless:start --live`);
+		const serverTerminal = assignTerminal(vscode, 'start');
+
+		serverTerminal.show();
+		serverTerminal.sendText(`twilio serverless:start --live`);
 	});
 
 	let deploy = vscode.commands.registerCommand('extension.deploy', function () {
 
-		const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
+		const terminal = assignTerminal(vscode, 'deploy')
+	
 		terminal.show();
 		terminal.sendText(`twilio serverless:deploy`);
 	});
 
 	context.subscriptions.push(init, newFn, start, deploy);
 }
-exports.activate = activate;
 
 function deactivate() {}
 
