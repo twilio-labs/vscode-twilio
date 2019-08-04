@@ -38,7 +38,7 @@ function activate(context) {
 					const terminal = vscode.window.activeTerminal || vscode.window.createTerminal();
 					terminal.show();
 					terminal.sendText(`cd ${projectFolder}`);
-					terminal.sendText(`twilio serverless:init ${projectName} && code ${projectName}`);
+					terminal.sendText(`twilio serverless:init ${projectName} && code ${projectName} -r`);
 				})				
 			});
 	});
