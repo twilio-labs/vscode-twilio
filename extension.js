@@ -34,28 +34,11 @@ function activate(context) {
 					const projectFolder = folder[0].fsPath;
 
 					console.log(projectFolder);
-					const projectPath = path.join(projectFolder, projectName);
 
-					const terminal = vscode.window.activeTerminal ? vscode.window.activeTerminal : vscode.window.createTerminal();
+					const terminal = vscode.window.activeTerminal || vscode.window.createTerminal();
 					terminal.show();
 					terminal.sendText(`cd ${projectFolder}`);
-					terminal.sendText(`twilio serverless:init ${projectName}`);
-
-					// Watch directory for the creation of the project.
-					const fileWatcher = chokidar.watch(projectFolder, {
-						ignored: /(^|[\/\\])\../,
-						persistent: true,
-						depth: 1
-					});
-
-					fileWatcher
-						.on('addDir', path => {
-							if (path === projectPath) {
-								// Open project once the folder has been created
-								vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(projectPath));
-							}
-						})
-
+					terminal.sendText(`twilio serverless:init ${projectName} && code ${projectName} -r`);
 				})				
 			});
 	});
