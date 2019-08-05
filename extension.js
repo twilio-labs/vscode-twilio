@@ -2,7 +2,7 @@ const vscode = require('vscode');
 const chokidar = require('chokidar');
 const path = require('path');
 const assignTerminal = require('./helpers/assignTerminal');
-
+const getServiceSid = require('./helpers/getServiceSid');
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -94,7 +94,60 @@ function activate(context) {
 		terminal.sendText(`twilio serverless:deploy`);
 	});
 
-	context.subscriptions.push(init, newFn, start, deploy);
+	let activate = vscode.commands.registerCommand('extension.activate', function() {
+		const terminal = assignTerminal(vscode, 'activate')
+
+		getServiceSid(vscode).then((serviceSid) => {
+			
+			vscode.window.showInputBox({
+				ignoreFocusOut: true,
+				placeHolder: "Enter the environment you want to deploy from (e.g. 'dev')...",
+			}).then(source => {
+				vscode.window.showInputBox({
+					ignoreFocusOut: true,
+					placeHolder: "Enter the environment you want to deploy to (e.g. 'prod')..."
+				}).then(destination => {
+
+					terminal.show();
+					terminal.sendText();
+					terminal.sendText(
+						`twilio serverless:activate --service-sid=${serviceSid} \
+							--environment=${destination} \
+							--source-environment=${source}`
+					);
+				});
+			});
+		});
+	});
+
+	let createEnvironment = vscode.commands.registerCommand('extension.createEnvironment', function () {
+		const terminal = assignTerminal(vscode, 'activate')
+
+		getServiceSid(vscode).then((serviceSid) => {
+
+			vscode.window.showInputBox({
+				ignoreFocusOut: true,
+				placeHolder: "Enter your environment unique name (e.g. 'production')...",
+			}).then(uniqueName => {
+				vscode.window.showInputBox({
+					ignoreFocusOut: true,
+					placeHolder: "Enter your environment suffix (e.g. 'prod' for my-project-1234-prod.twil.io)..."
+				}).then(suffix => {
+
+					terminal.show();
+					terminal.sendText(
+						`twilio api:serverless:v1:services:environments:create \
+							--service-sid=${serviceSid} \
+							--domain-suffix=${suffix} \
+							--unique-name=${uniqueName}`
+					);
+				});
+			});
+
+		});
+	});
+
+	context.subscriptions.push(init, newFn, start, deploy, activate, createEnvironment);
 }
 
 function deactivate() {}
