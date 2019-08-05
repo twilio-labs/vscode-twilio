@@ -18,14 +18,15 @@
 		"onCommand:extension.new",
 		"onCommand:extension.start",
 		"onCommand:extension.deploy",
-		"onCommand:extension.activate"
+		"onCommand:extension.activate",
+		"onCommand:extension.createEnvironment"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "extension.init",
-				"title": "Twilio Serverless: Init"
+				"title": "Twilio Serverless: Create Project"
 			},
 			{
 				"command": "extension.new",
@@ -33,7 +34,7 @@
 			},
 			{
 				"command": "extension.start",
-				"title": "Twilio Serverless: Start"
+				"title": "Twilio Serverless: Start Local Server"
 			},
 			{
 				"command": "extension.deploy",
@@ -42,6 +43,10 @@
 			{
 				"command": "extension.activate",
 				"title": "Twilio Serverless: Activate"
+			},
+			{
+				"command": "extension.createEnvironment",
+				"title": "Twilio Serverless: Create Environment"
 			}
 		]
 	},

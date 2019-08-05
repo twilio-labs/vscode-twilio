@@ -1,6 +1,5 @@
 const vscode = require('vscode');
 const chokidar = require('chokidar');
-const fs = require('fs');
 const path = require('path');
 const assignTerminal = require('./helpers/assignTerminal');
 const getServiceSid = require('./helpers/getServiceSid');
@@ -105,7 +104,34 @@ function activate(context) {
 		});
 	});
 
-	context.subscriptions.push(init, newFn, start, deploy, activate);
+	let createEnvironment = vscode.commands.registerCommand('extension.createEnvironment', function () {
+		const terminal = assignTerminal(vscode, 'activate')
+
+		getServiceSid(vscode).then((serviceSid) => {
+
+			vscode.window.showInputBox({
+				ignoreFocusOut: true,
+				placeHolder: "Enter your environment unique name (e.g. 'production')...",
+			}).then(uniqueName => {
+				vscode.window.showInputBox({
+					ignoreFocusOut: true,
+					placeHolder: "Enter your environment suffix (e.g. 'prod' for my-project-1234-prod.twil.io)..."
+				}).then(suffix => {
+
+					terminal.show();
+					terminal.sendText(
+						`twilio api:serverless:v1:services:environments:create \
+							--service-sid=${serviceSid} \
+							--domain-suffix=${suffix} \
+							--unique-name=${uniqueName}`
+					);
+				})
+			})
+
+		});
+	});
+
+	context.subscriptions.push(init, newFn, start, deploy, activate, createEnvironment);
 }
 
 function deactivate() {}
