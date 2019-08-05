@@ -14,18 +14,17 @@ function getServiceSid(vscode) {
             if (err) { reject(err); };
 
             const parsedData = JSON.parse(data.toString());
-    
-            console.log(parsedData);
-    
+
             if (parsedData.serviceSid) {
-                console.log('found sid');
+
                 resolve(parsedData.serviceSid);
+
             } else {
                 vscode.window.showInputBox({
                     ignoreFocusOut: true,
                     placeHolder: 'Enter your Service SID here...',
                 }).then(serviceSid => {
-                    console.log('manual entry' + serviceSid);
+
                     parsedData['serviceSid'] = serviceSid;
                     let writeData = JSON.stringify(parsedData, null, 4);
 
