@@ -5,8 +5,11 @@
 		"name": "Charlie Weems",
 		"email": "cweems@twilio.com"
 	},
+	"publisher": "Twilio",
+	"icon": "images/twilio.png",
+	"license": "SEE LICENSE IN LICENSE.txt",
 	"description": "Deploy Twilio functions from VSCode.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.36.0"
 	},
@@ -63,6 +66,10 @@
 		"mocha": "^6.1.4",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.0.0-next.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/twilio-labs/vscode-twilio"
 	},
 	"dependencies": {
 		"chokidar": "^3.0.2"
