@@ -9,7 +9,7 @@
 	"icon": "images/twilio.png",
 	"license": "SEE LICENSE IN LICENSE.txt",
 	"description": "Deploy Twilio functions from VSCode.",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.36.0"
 	},
