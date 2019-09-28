@@ -5,7 +5,8 @@ const {
 	deploy,
 	init,
 	newFunction,
-	start
+	start,
+	list
 } = require('./commands');
 
 /**
@@ -22,6 +23,7 @@ function activate(context) {
 	const deployFunction = vscode.commands.registerCommand('extension.deploy', deploy);
  	const activateFunction = vscode.commands.registerCommand('extension.activate', activateFn);
 	const createEnvironment = vscode.commands.registerCommand('extension.createEnvironment', createEnv);
+	const listFunction = vscode.commands.registerCommand('extension.list',list);
 
 	context.subscriptions.push(
 		activateFunction,
@@ -29,7 +31,8 @@ function activate(context) {
 		createFunction,
 		createProject,
 		deployFunction,
-		startServer
+		startServer,
+		listFunction
 	);
 }
 

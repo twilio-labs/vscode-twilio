@@ -94,6 +94,9 @@ Moves an active deployment from one environment to another.
 ##### `Twilio Serverless: Deploy`
 Deploy functions from your local to the specified environment.
 
+##### `Twilio Serverless: List`
+List functions from your local to the specified environment.
+
 <a name="contributing"></a>
 ## Contributing
 This project adheres to the Twilio Labs [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md). Please read before contributing.
