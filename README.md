@@ -34,7 +34,7 @@ This project is currently on beta and some features _(such as listing the existi
 
 <a name="requirements"></a>
 ## Requirements
-For this extension to work properly, you need to have the Twilio CLI and Twilio Serverless plugin installed in your computer. Aditionally, having the `code` command installed in your PATH allows the extension to open VSCode after a new project is created.
+For this extension to work properly, you need to have the Twilio CLI and Twilio Serverless plugin installed in your computer. Additionally, having the `code` command installed in your PATH allows the extension to open VSCode after a new project is created.
 
 ### Installing the Twilio CLI
 Run `npm install twilio-cli -g` in your terminal.
@@ -80,7 +80,7 @@ Starts a local instance that serves the existing functions for local development
 ### Create new environments
 
 ##### `Twilio Serverless: Create Environment`
-Creates a new enrivonment to deploy functions to.
+Creates a new environment to deploy functions to.
 
 <a name="activate"></a>
 ### Activate a function
