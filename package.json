@@ -23,7 +23,7 @@
 		"onCommand:extension.deploy",
 		"onCommand:extension.activate",
 		"onCommand:extension.createEnvironment",
-		"onCommand:extension.list"
+		"onCommand:extension.listFunctions"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -54,7 +54,7 @@
 			},
 			{
 				"command": "extension.listFunction",
-				"title": "Twilio Serverless: List functions"
+				"title": "Twilio Serverless: List Functions"
 			}
 		]
 	},

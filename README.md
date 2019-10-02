@@ -94,8 +94,8 @@ Moves an active deployment from one environment to another.
 ##### `Twilio Serverless: Deploy`
 Deploy functions from your local to the specified environment.
 
-##### `Twilio Serverless: List`
-List functions from your local to the specified environment.
+##### `Twilio Serverless: List Functions`
+List existing functions for your account.
 
 <a name="contributing"></a>
 ## Contributing
