@@ -53,7 +53,7 @@
 				"title": "Twilio Serverless: Create Environment"
 			},
 			{
-				"command": "extension.listFunction",
+				"command": "extension.listFunctions",
 				"title": "Twilio Serverless: List Functions"
 			}
 		]

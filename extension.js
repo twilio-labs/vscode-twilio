@@ -23,7 +23,7 @@ function activate(context) {
 	const deployFunction = vscode.commands.registerCommand('extension.deploy', deploy);
  	const activateFunction = vscode.commands.registerCommand('extension.activate', activateFn);
 	const createEnvironment = vscode.commands.registerCommand('extension.createEnvironment', createEnv);
-	const listFunctions = vscode.commands.registerCommand('extension.listFunctions ',list);
+	const listFunctions = vscode.commands.registerCommand('extension.listFunctions', list);
 
 	context.subscriptions.push(
 		activateFunction,

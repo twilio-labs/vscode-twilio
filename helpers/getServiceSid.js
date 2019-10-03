@@ -7,36 +7,36 @@ const path = require('path');
 
 function getServiceSid(vscode) {
     return new Promise((resolve, reject) => {
-        const wsPath = (vscode.workspace.workspaceFolders[0].uri.fsPath);
-        const twilioFnFilePath = path.join(wsPath, `.twilio-functions`);
-    
-        fs.readFile(twilioFnFilePath, (err, data) => {
-            if (err) { reject(err); };
+        if (vscode.workspace.workspaceFolders.length > 0) {
+            const wsPath = (vscode.workspace.workspaceFolders[0].uri.fsPath);
+            const twilioFnFilePath = path.join(wsPath, `.twilio-functions`);
+            fs.readFile(twilioFnFilePath, (err, data) => {
+                let parsedData = {};
+                if (data) {
+                    parsedData = JSON.parse(data.toString());
+                }
+                if (err || !parsedData.serviceSid) {
+                    vscode.window.showInputBox({
+                        ignoreFocusOut: true,
+                        placeHolder: 'Enter your Service SID here...',
+                    }).then(serviceSid => {
+                        parsedData['serviceSid'] = serviceSid;
+                        const writeData = JSON.stringify(parsedData, null, 4);
 
-            const parsedData = JSON.parse(data.toString());
+                        fs.writeFile(twilioFnFilePath, writeData, 'utf-8', (err) => {
+                            if (err) { reject(err); };
 
-            if (parsedData.serviceSid) {
+                            resolve(serviceSid);
+                        })
 
-                resolve(parsedData.serviceSid);
-
-            } else {
-                vscode.window.showInputBox({
-                    ignoreFocusOut: true,
-                    placeHolder: 'Enter your Service SID here...',
-                }).then(serviceSid => {
-
-                    parsedData['serviceSid'] = serviceSid;
-                    let writeData = JSON.stringify(parsedData, null, 4);
-
-                    fs.writeFile(twilioFnFilePath, writeData, 'utf-8', (err) => {
-                        if (err) { reject(err); };
-
-                        resolve(serviceSid);
-                    })
-
-                });	
-            }
-        });
+                    });	
+                } else {
+                    resolve(parsedData.serviceSid);
+                }
+            });   
+        } else {
+            reject('No workspace folder detected. Please init a new project.');
+        }
     });
 }
 

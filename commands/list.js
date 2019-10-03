@@ -1,12 +1,16 @@
 const vscode = require("vscode");
-const fs = require("fs");
-const path = require('path');
 const assignTerminal = require("../helpers/assignTerminal");
+const getServiceSid = require('../helpers/getServiceSid');
 
 function list(type = 'functions') {
   const terminal = assignTerminal(vscode, "list");
-  terminal.show();
-  terminal.sendText(`twilio serverless:list ${type}`);
+  getServiceSid(vscode).then((serviceSid) => {
+    terminal.show();
+    terminal.sendText(`twilio serverless:list ${type} --service-sid=${serviceSid}`);
+  }).catch(err => {
+    terminal.show();
+    terminal.sendText(err);
+  });
 }
 
 module.exports = list;

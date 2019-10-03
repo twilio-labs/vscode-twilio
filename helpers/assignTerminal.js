@@ -1,5 +1,4 @@
 function assignTerminal(vscode, command) {
-
     let terminal;
 
     const terminals = vscode.window.terminals;
