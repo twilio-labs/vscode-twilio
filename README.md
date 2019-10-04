@@ -107,7 +107,7 @@ A good way to get started with contributions is to look at the current open issu
 
 <a name="general-contributions"></a>
 ### General contributions
-Before starting your work in any issue, please ping us on that same issue and let us know so we can coordinate properly in case someone else is already working on it.
+Before starting your work on any issue, please ping us on that same issue and let us know so we can coordinate properly in case someone else is already working on it.
 
 <a name="develop-locally"></a>
 ### How to develop locally and contribute changes
