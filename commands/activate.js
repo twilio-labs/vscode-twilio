@@ -22,6 +22,9 @@ function activateFn() {
                 );
             });
         });
+    }).catch((err) => {
+        terminal.show();
+        terminal.sendText(err);
     });
 }
 
