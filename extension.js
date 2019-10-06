@@ -1,3 +1,5 @@
+import { installDependencies } from './helpers/onInitDependencyInstaller';
+
 const vscode = require('vscode');
 const {
 	activateFn,
@@ -13,9 +15,13 @@ const {
  * @param {vscode.ExtensionContext} context
  */
 
+ export const output = vscode.window.createOutputChannel('twilio');
+
 function activate(context) {
 
 	console.log('Twilio Serverless for Code is now active!');
+  
+	installDependencies(context, output);
 
 	const createProject = vscode.commands.registerCommand('extension.init', init);
 	const createFunction = vscode.commands.registerCommand('extension.new', newFunction);
