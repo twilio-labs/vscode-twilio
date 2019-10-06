@@ -59,7 +59,8 @@
 		]
 	},
 	"scripts": {
-		"test": "node ./test/runTest.js"
+		"test": "node ./test/runTest.js",
+		"preinstall": "npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
