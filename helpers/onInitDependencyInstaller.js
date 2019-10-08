@@ -1,14 +1,17 @@
 import * as child_process from 'child_process';
 
 export function installDependencies(context, output) {
-  output.appendLine('`twilio-cli` will be installed automatically!');
-  output.appendLine('Running... `npm install twilio-cli -g`');
-  output.appendLine(
-    `If the package installation fails, you can manually install.`,
-  );
-  output.appendLine(
-    'To manually install you can run the following: `npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless`',
-  );
+  if (process.platform === 'darwin') {
+    try {
+      // Check if already installed via Brew on darwin.
+      child_process.execFileSync('twilio', {
+        encoding: 'utf8',
+      });
+      return;
+    } catch (e) {
+      // Not detected. Proceed will installation as normal.
+    }
+  }
 
   const cliCheck = child_process.execFileSync(
     'npm',
@@ -23,16 +26,42 @@ export function installDependencies(context, output) {
     return;
   }
 
-  child_process.execFileSync('npm', ['install', '-g', 'twilio-cli'], {
-    encoding: 'utf8',
-  });
-  child_process.execFileSync(
-    'twilio',
-    ['plugins:install', '@twilio-labs/plugin-serverless'],
-    {
-      encoding: 'utf8',
-    },
+  output.show();
+  output.appendLine('`twilio-cli` is being automatically installed!');
+  output.appendLine('Running... `npm install twilio-cli -g`');
+  output.appendLine(
+    `If the package installation fails, you can manually install.`,
   );
+
+  switch (process.platform) {
+    case 'darwin':
+      output.appendLine(
+        'To manually install `twilio-cli` via Homebrew please do: `brew install twilio/brew/twilio && twilio plugins:install @twilio-labs/plugin-serverless`.',
+      );
+      break;
+    default:
+      break;
+  }
+  output.appendLine(
+    'To manually install via npm you can run the following: `npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless`',
+  );
+
+  try {
+    child_process.execFileSync('npm', ['install', '-g', 'twilio-cli'], {
+      encoding: 'utf8',
+    });
+    child_process.execFileSync(
+      'twilio',
+      ['plugins:install', '@twilio-labs/plugin-serverless'],
+      {
+        encoding: 'utf8',
+      },
+    );
+  } catch (e) {
+    output.appendLine(
+      'ERROR. Could not automatically install `twilio`. Please install manually.',
+    );
+  }
 }
 
 /**
