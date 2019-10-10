@@ -1,5 +1,4 @@
-# Twilio Serverless VSCode Extension
-![frame-002](https://user-images.githubusercontent.com/1418949/62335662-86fcb500-b481-11e9-8605-0028f1b39815.jpg)
+# Warren was here
 
 <!-- TOC -->
 ## Contents
