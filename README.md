@@ -15,6 +15,7 @@
       * [Create new environments](#create-env)
       * [Activate a function](#activate)
       * [Deploy a function](#deploy)
+      * [List functions](#list)
    * [Contributing](#contributing)
       * [First time contributors](#first-time-contributors)
       * [General contributions](#general-contributions)
@@ -37,14 +38,14 @@ This project is currently on beta and some features _(such as listing the existi
 For this extension to work properly, you need to have the Twilio CLI and Twilio Serverless plugin installed in your computer. Additionally, having the `code` command installed in your PATH allows the extension to open VSCode after a new project is created.
 
 ### Installing the Twilio CLI
-Run `npm install twilio-cli -g` in your terminal.
+Run `npm install twilio-cli -g` in your terminal.(Using sudo for permission issues)
 
 ### Installing the Twilio Serverless Plugin
 Run `twilio plugins:install @twilio-labs/plugin-serverless` in your terminal.
 
 ### Installing the `code` command in your PATH _(optional)_
 
-1. Run the Command Palette in your VSCode app _(Ctrl+Shift+P in Windows and Linux, Cmd+Shift+P in macOS)_
+1. Run the Command Palette in your VSCode app _(Ctrl+Shift+P in Windows and Linux, Cmd+Shift+P in macOS)_.
 2. Search for "Shell Command: Install `code` command in PATH" and execute.
 
 <a name="getting-started"></a>
@@ -93,6 +94,9 @@ Moves an active deployment from one environment to another.
 
 ##### `Twilio Serverless: Deploy`
 Deploy functions from your local to the specified environment.
+
+<a name="list"></a>
+### List functions
 
 ##### `Twilio Serverless: List Functions`
 List existing functions for your account.
