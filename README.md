@@ -124,7 +124,7 @@ Before starting your work on any issue, please ping us on that same issue and le
 
 <a name="license"></a>
 ## License
-MIT
+MIT, Cambridge, MA
 
 <a name="questions"></a>
 ## Questions or Comments?
