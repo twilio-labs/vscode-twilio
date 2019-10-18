@@ -128,4 +128,4 @@ MIT
 
 <a name="questions"></a>
 ## Questions or Comments?
-Feel free to open an issue and we'll get back to you as soon as possible :)
+Feel free to [open an issue](https://github.com/twilio-labs/vscode-twilio/issues/) and we'll get back to you as soon as possible :)
