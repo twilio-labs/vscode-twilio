@@ -1,10 +1,10 @@
-import * as child_process from 'child_process';
+const { execFileSync } = require('child_process');
 
-export function installDependencies(context, output) {
+function installDependencies(context, output) {
   if (process.platform === 'darwin') {
     try {
       // Check if already installed via Brew on darwin.
-      child_process.execFileSync('twilio', {
+      execFileSync('twilio', {
         encoding: 'utf8',
       });
       return;
@@ -13,12 +13,12 @@ export function installDependencies(context, output) {
     }
   }
 
-  const cliCheck = child_process.execFileSync(
+  const cliCheck = execFileSync(
     'npm',
     ['ls', '-g', 'twilio-cli', '--json'],
     {
       encoding: 'utf8',
-    },
+    }
   );
   const cliCheckNpmJSON = JSON.parse(cliCheck);
   // npm with --json flag yields `{}` if the package is uninstalled.
@@ -30,36 +30,36 @@ export function installDependencies(context, output) {
   output.appendLine('`twilio-cli` is being automatically installed!');
   output.appendLine('Running... `npm install twilio-cli -g`');
   output.appendLine(
-    `If the package installation fails, you can manually install.`,
+    `If the package installation fails, you can manually install.`
   );
 
   switch (process.platform) {
     case 'darwin':
       output.appendLine(
-        'To manually install `twilio-cli` via Homebrew please do: `brew install twilio/brew/twilio && twilio plugins:install @twilio-labs/plugin-serverless`.',
+        'To manually install `twilio-cli` via Homebrew please do: `brew install twilio/brew/twilio && twilio plugins:install @twilio-labs/plugin-serverless`.'
       );
       break;
     default:
       break;
   }
   output.appendLine(
-    'To manually install via npm you can run the following: `npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless`',
+    'To manually install via npm you can run the following: `npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless`'
   );
 
   try {
-    child_process.execFileSync('npm', ['install', '-g', 'twilio-cli'], {
+    execFileSync('npm', ['install', '-g', 'twilio-cli'], {
       encoding: 'utf8',
     });
-    child_process.execFileSync(
+    execFileSync(
       'twilio',
       ['plugins:install', '@twilio-labs/plugin-serverless'],
       {
         encoding: 'utf8',
-      },
+      }
     );
   } catch (e) {
     output.appendLine(
-      'ERROR. Could not automatically install `twilio`. Please install manually.',
+      'ERROR. Could not automatically install `twilio`. Please install manually.'
     );
   }
 }
@@ -81,3 +81,5 @@ function isTruthy(o) {
   }
   return !!o;
 }
+
+module.exports = installDependencies;

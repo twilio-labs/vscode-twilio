@@ -1,4 +1,4 @@
-import { installDependencies } from './helpers/onInitDependencyInstaller';
+const installDependencies = require('./helpers/onInitDependencyInstaller');
 
 const vscode = require('vscode');
 const {
@@ -15,7 +15,7 @@ const {
  * @param {vscode.ExtensionContext} context
  */
 
- export const output = vscode.window.createOutputChannel('twilio');
+const output = vscode.window.createOutputChannel('twilio');
 
 function activate(context) {
 
