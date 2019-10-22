@@ -31,14 +31,14 @@ Develop, test and deploy Twilio Functions right from Visual Studio Code!
 
 <a name="status"></a>
 ## ️️⚠️ Status ⚠️
-This project is currently on beta and some features _(such as listing the existing functions)_ are not currently supported, but are in the roadmap. All feedback is greatly appreciated.
+This project is currently on beta and some features such as _(listing the existing functions)_ are not currently supported, but are in the roadmap. All feedback is greatly appreciated.
 
 <a name="requirements"></a>
 ## Requirements
 For this extension to work properly, you need to have the Twilio CLI and Twilio Serverless plugin installed in your computer. Additionally, having the `code` command installed in your PATH allows the extension to open VSCode after a new project is created.
 
 ### Installing the Twilio CLI
-Run `npm install twilio-cli -g` in your terminal (If you run into permission issues while doing this, running the command using `sudo` might help).
+Run `npm install twilio-cli -g` in your terminal! (If you run into permission issues while doing this, running the command using `sudo` might help.)
 
 ### Installing the Twilio Serverless Plugin
 Run `twilio plugins:install @twilio-labs/plugin-serverless` in your terminal.
