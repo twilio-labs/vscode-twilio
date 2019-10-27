@@ -55,6 +55,22 @@
 			{
 				"command": "extension.listFunctions",
 				"title": "Twilio Serverless: List Functions"
+			},
+			{
+				"command": "extension.listServices",
+				"title": "Twilio Serverless: List Services"
+			},
+			{
+				"command": "extension.listEnvironments",
+				"title": "Twilio Serverless: List Environments"
+			},
+			{
+				"command": "extension.listAssets",
+				"title": "Twilio Serverless: List Assets"
+			},
+			{
+				"command": "extension.listVariables",
+				"title": "Twilio Serverless: List Variables"
 			}
 		]
 	},

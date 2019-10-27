@@ -15,7 +15,11 @@
       * [Create new environments](#create-env)
       * [Activate a function](#activate)
       * [Deploy a function](#deploy)
-      * [List functions](#list)
+      * [List functions](#list-functions)
+      * [List services](#list-services)
+      * [List environments](#list-environments)
+      * [List assets](#list-assets)
+      * [List variables](#list-variables)
    * [Contributing](#contributing)
       * [First time contributors](#first-time-contributors)
       * [General contributions](#general-contributions)
@@ -95,11 +99,35 @@ Moves an active deployment from one environment to another.
 ##### `Twilio Serverless: Deploy`
 Deploy functions from your local to the specified environment.
 
-<a name="list"></a>
+<a name="list-functions"></a>
 ### List functions
 
 ##### `Twilio Serverless: List Functions`
 List existing functions for your account.
+
+<a name="list-services"></a>
+### List services
+
+##### `Twilio Serverless: List Services`
+List existing services for your account.
+
+<a name="list-environments"></a>
+### List environments
+
+##### `Twilio Serverless: List Environments`
+List existing environments for your account.
+
+<a name="list-assets"></a>
+### List assets
+
+##### `Twilio Serverless: List Assets`
+List existing assets for your account.
+
+<a name="list-variables"></a>
+### List variables
+
+##### `Twilio Serverless: List Variables`
+List existing variables for your account.
 
 <a name="contributing"></a>
 ## Contributing
