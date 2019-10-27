@@ -77,6 +77,6 @@
 		"url": "https://github.com/twilio-labs/vscode-twilio"
 	},
 	"dependencies": {
-		"chokidar": "^3.0.2"
+		"chokidar": "3.0.2"
 	}
 }
