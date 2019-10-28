@@ -30,6 +30,10 @@ function activate(context) {
  	const activateFunction = vscode.commands.registerCommand('extension.activate', activateFn);
 	const createEnvironment = vscode.commands.registerCommand('extension.createEnvironment', createEnv);
 	const listFunctions = vscode.commands.registerCommand('extension.listFunctions', list);
+	const listServices = vscode.commands.registerCommand('extension.listServices', () => {list('services')});
+	const listEnvironments = vscode.commands.registerCommand('extension.listEnvironments', () => {list('environments')});
+	const listAssets = vscode.commands.registerCommand('extension.listAssets', () => {list('assets')});
+	const listVariables = vscode.commands.registerCommand('extension.listVariables', () => {list('variables')});
 
 	context.subscriptions.push(
 		activateFunction,
@@ -38,7 +42,11 @@ function activate(context) {
 		createProject,
 		deployFunction,
 		startServer,
-		listFunctions
+		listFunctions,
+		listServices,
+		listEnvironments,
+		listAssets,
+		listVariables
 	);
 }
 
