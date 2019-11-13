@@ -82,9 +82,15 @@
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^10.12.21",
 		"@types/vscode": "^1.36.0",
-		"eslint": "^5.13.0",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^6.4.0",
+		"eslint-config-twilio": "^1.7.0",
+		"eslint-plugin-prettier": "^3.1.1",
 		"glob": "^7.1.4",
+		"husky": "^3.0.8",
+		"lint-staged": "^9.4.2",
 		"mocha": "^6.1.4",
+		"prettier": "1.18.2",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.0.0-next.0"
 	},
@@ -94,5 +100,16 @@
 	},
 	"dependencies": {
 		"chokidar": "^3.0.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix",
+			"git add"
+		]
 	}
 }
